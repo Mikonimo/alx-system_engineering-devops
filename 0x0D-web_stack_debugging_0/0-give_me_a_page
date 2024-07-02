@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Debugging must return 'Hello Holberton'
+docker run -p 8080:80 -d -it holbertonschool/265-0
+CONT_ID=$(docker ps -q -f ancestor=holbertonschool/265-0)
+docker exec -it "$CONT_ID" /bin/bash
+
+apt-get update
+apt-get install -y apache2
+
+echo "Hello Holberton" > /var/www/html/index.html
+
+service apache2 start
+
+cat /etc/apache2/sites-available/000-default.conf
+# Ensure configuration is correct, if not:
+echo "<VirtualHost *:80>
+    DocumentRoot /var/www/html
+    <Directory /var/www/html>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
+
+a2ensite 000-default.conf
+cat /etc/apache2/ports.conf
+# Ensure port configuration is correct, if not:
+echo "Listen 80" > /etc/apache2/ports.conf
+
+service apache2 restart
+
+exit
+

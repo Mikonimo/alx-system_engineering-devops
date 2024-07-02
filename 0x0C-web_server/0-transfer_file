@@ -6,7 +6,7 @@ usage() {
 
 if [ $# -lt 4 ]; then
     usage
-file
+fi
 
 FILE_PATH=$1
 SERVER_IP=$2

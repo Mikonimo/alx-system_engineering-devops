@@ -3,9 +3,27 @@
 apt-get update
 apt-get install -y nginx
 ufw allow 'Nginx HTTP'
-REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 echo "Hello World!" > /var/www/html/index.html
 NGINX_CONF="/etc/nginx/sites-available/default"
 cp $NGINX_CONF ${NGINX_CONF}.bak
-sed -i '/server_name _;/a \\n\tlocation /redirect_me {\n\t\treturn 301 '"$REDIRECT_URL"';\n\t}\n' $NGINX_CONF
-service nginx start
+cat > /etc/nginx/sites-available/default << 'EOF'
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location = /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}
+EOF
+nginx -t
+nginx -s reload

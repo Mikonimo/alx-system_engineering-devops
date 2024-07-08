@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Exit on any error
+set -e
+
+# Update package list and install Nginx
+apt-get update
+apt-get -y install nginx
+
+# Create a backup of the original default Nginx configuration
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+
+# Get the hostname
+HOSTNAME=$(hostname)
+
+# Configure Nginx to add the custom HTTP response header
+cat > /etc/nginx/sites-available/default << EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+        add_header X-Served-By $HOSTNAME;
+    }
+}
+EOF
+
+# Test Nginx configuration for syntax errors
+nginx -t
+
+# Reload Nginx to apply the changes
+nginx -s reload

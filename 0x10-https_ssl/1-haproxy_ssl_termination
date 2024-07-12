@@ -24,9 +24,17 @@ defaults
     errorfile 503 /etc/haproxy/errors/503.http
     errorfile 504 /etc/haproxy/errors/504.http
 
-frontend http_front
+frontend www-http
     bind *:80
-    default_backend http_back
+    reqadd X-Forwarded-Proto:\ http
+    default_backend www-backend
+
+frontend www-https
+        bind *:443
+
+#frontend http_front
+#    bind *:80
+#    default_backend http_back
 
 backend http_back
     balance roundrobin

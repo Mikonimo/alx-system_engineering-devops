@@ -6,5 +6,5 @@ ufw allow 'Nginx HTTP'
 REDIRECT_URL="https://mikonimo.github.io"
 echo "Hello World!" > /var/www/html/index.html
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
-sed -i '/server_name _;/a \\nlocation /redirect_me {\n\t\treturn 301 '"$REDIRECT_URL"';\n\t}\n' /etc/nginx/sites-available/default
+sed -i '/server_name _;/a \\n\tlocation /redirect_me {\n\t\treturn 301 '"$REDIRECT_URL"';\n\t}\n' /etc/nginx/sites-available/default
 service nginx start

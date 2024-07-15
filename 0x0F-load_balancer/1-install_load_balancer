@@ -40,8 +40,8 @@ frontend http_front
 
 backend http_back
     balance roundrobin
-    server web-01 325318-web-01:80 check
-    server web-02 325318-web-02:80 check
+    server web-01 54.157.138.77:80 check
+    server web-02 100.26.155.31:80 check
 
 listen stats
     bind *:8080

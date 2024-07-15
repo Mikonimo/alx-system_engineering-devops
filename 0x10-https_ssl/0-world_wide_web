@@ -10,7 +10,7 @@ func () {
 
 if [ $# == 1 ]
 then
-  for sub in www lb-01 web-01 web-02
+  for sub in www 52.91.156.60 54.157.138.77 100.26.155.31
   do
     func "$1" "$sub"
   done

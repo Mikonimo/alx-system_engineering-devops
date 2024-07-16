@@ -24,17 +24,17 @@ defaults
     errorfile 503 /etc/haproxy/errors/503.http
     errorfile 504 /etc/haproxy/errors/504.http
 
-frontend www-http
+    tune.ssl.deefault-dh-param 2048
+
+frontend https-in
+    bind *:443 ssl crt /etc/letsencrypt/live/www.mikonimo.tech/fullchain.pem key /etc/letsencrypt/live/www.mikonimo.tech/privkey.pm
+    mode http
+    option httplog
+    default_backend http_back
+
+frontend http_front
     bind *:80
-    reqadd X-Forwarded-Proto:\ http
-    default_backend www-backend
-
-frontend www-https
-        bind *:443
-
-#frontend http_front
-#    bind *:80
-#    default_backend http_back
+    default_backend http_back
 
 backend http_back
     balance roundrobin

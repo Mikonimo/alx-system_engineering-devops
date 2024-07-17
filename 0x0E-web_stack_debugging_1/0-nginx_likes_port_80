@@ -8,4 +8,4 @@ sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/defa
 sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/' /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the configuration
-systemctl restart nginx
+service nginx restart

@@ -1,0 +1,2 @@
+## MySQL ##
+Configuring the mysql

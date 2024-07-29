@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Exports data to the CSV format"""
+import csv
 import requests
 import sys
-import csv
 
 
 def fetch_employee_data(employee_id):

@@ -30,31 +30,6 @@ def fetch_employee_data(employee_id):
     return employee_id, employee_name, todos_data
 
 
-def display_todo_list_progress(employee_name, todos_data):
-    # Extract and count tasks
-    total_tasks = len(todos_data)
-    done_tasks = [task for task in todos_data if task['completed']]
-    number_of_done_tasks = len(done_tasks)
-
-    # Print the required output
-    print('Employee {} is done with tasks({}/{}):'
-          .format(employee_name, number_of_done_tasks, total_tasks))
-    for task in done_tasks:
-        print(f'\t {task["title"]}')
-
-
-def export_to_csv(employee_id, employee_name, todos_data):
-    # CSV file name
-    csv_filename = f'{employee_id}.csv'
-
-    # Write to CSV
-    with open(csv_filename, mode='w', newline='') as csv_file:
-        writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
-        for task in todos_data:
-            writer.writerow([employee_id, employee_name,
-                            task['completed'], task['title']])
-
-
 def export_to_json(employee_id, employee_name, todos_data):
     # JSON file name
     json_filename = f'{employee_id}.json'
@@ -82,6 +57,4 @@ if __name__ == '__main__':
         sys.exit(1)
 
     employee_id, employee_name, todos_data = fetch_employee_data(employee_id)
-    display_todo_list_progress(employee_name, todos_data)
-    export_to_csv(employee_id, employee_name, todos_data)
     export_to_json(employee_id, employee_name, todos_data)

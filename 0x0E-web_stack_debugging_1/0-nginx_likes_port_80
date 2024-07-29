@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-# script that restores the default server port
-
-serv="listen 8080 default_server;"
-new="listen 80 default_server;"
-sudo sed -i "s/$serv/$new/" /etc/nginx/sites-enabled/default
-sudo sed -i "22d" /etc/nginx/sites-enabled/default
+# Ensure Nginx is configured to listen on port 80
+ufw allow 'Nginx HTTP'
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+# Restart Nginx to apply the configuration
 sudo service nginx restart

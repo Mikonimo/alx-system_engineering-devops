@@ -27,8 +27,8 @@ def fetch_employee_data(employee_id):
     number_of_done_tasks = len(done_tasks)
 
     # Print the required output
-    print(f'Employee {employee_name} is done with tasks(\
-        {number_of_done_tasks}/{total_tasks}):')
+    print('Employee {} is done with tasks({}/{}):'
+          .format(employee_name, number_of_done_tasks, total_tasks))
     for task in done_tasks:
         print(f'\t {task["title"]}')
 

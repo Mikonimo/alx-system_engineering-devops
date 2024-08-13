@@ -4,7 +4,7 @@ for a given subreddit"""
 import requests
 
 
-def num_subscribers(subreddit):
+def number_of_subscribers(subreddit):
     """Queries the Reddit API"""
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
     headers = {"User-Agent": "python:subreddit.subscriber.counter:v1.0.0\

@@ -4,6 +4,7 @@ or a given subreddit"""
 
 import requests
 
+
 def top_ten(subreddit):
     # Reddit API endpoint for hot posts
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
@@ -16,7 +17,8 @@ def top_ten(subreddit):
 
     try:
         # Make the API request
-        response = requests.get(url, headers=headers, params=params, allow_redirects=False)
+        response = requests.get(url, headers=headers, params=params,
+                                allow_redirects=False)
 
         # Check if the subreddit is valid
         if response.status_code == 200:

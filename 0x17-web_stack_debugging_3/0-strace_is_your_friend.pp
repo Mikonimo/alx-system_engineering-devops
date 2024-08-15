@@ -1,11 +1,11 @@
-# Fixes a WordPress file with wrong name
+# 0-strace_is_your_friend.pp
+
 exec { 'fix-wordpress':
-  command => 'mv /var/www/html/wp-setting.php /var/www/html/wp-settings.php',
+  command => "sed -i 's/class-wp-locale.phpp/class-wp-locale.php/g' /var/www/html/wp-settings.php",
   path    => ['/bin','/usr/bin'],
-  onlyif  => 'test -f /var/www/html/wp-setting.php',
+  onlyif  => "grep -q 'class-wp-locale.phpp' /var/www/html/wp-settings.php",
 }
 
-# Restart Apache service
 service { 'apache2':
   ensure    => running,
   enable    => true,
